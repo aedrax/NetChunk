@@ -1,0 +1,121 @@
+# NetChunk Configuration File
+# Version: @PROJECT_VERSION@
+# 
+# This file contains configuration settings for the NetChunk distributed file storage client.
+# Copy this file to ~/.netchunk/config or /etc/netchunk/netchunk.conf and modify as needed.
+
+[general]
+# Default chunk size in bytes (minimum 1MB, maximum 64MB)
+chunk_size = 4194304
+
+# Number of replicas to maintain for each chunk (minimum 1, maximum 10)
+replication_factor = 3
+
+# Maximum number of concurrent operations
+max_concurrent_operations = 4
+
+# Timeout for FTP operations in seconds
+ftp_timeout = 30
+
+# Path to store local manifests and temporary files
+local_storage_path = ~/.netchunk/data
+
+# Log level: ERROR, WARN, INFO, DEBUG
+log_level = INFO
+
+# Log file path (use 'stdout' for console output)
+log_file = ~/.netchunk/netchunk.log
+
+# Enable automatic health monitoring
+health_monitoring_enabled = true
+
+# Health check interval in seconds
+health_check_interval = 300
+
+[servers]
+# FTP server configurations
+# Each server section should be named [server_N] where N starts from 1
+# You must define at least one server, and ideally more than your replication_factor
+
+[server_1]
+host = ftp1.example.com
+port = 21
+username = netchunk_user1
+password = your_password_here
+base_path = /netchunk/storage
+# Optional: enable SSL/TLS
+use_ssl = false
+# Optional: passive mode (recommended for firewalls)
+passive_mode = true
+# Optional: server priority (lower numbers = higher priority)
+priority = 1
+
+[server_2]
+host = ftp2.example.com
+port = 21
+username = netchunk_user2
+password = your_password_here
+base_path = /netchunk/storage
+use_ssl = false
+passive_mode = true
+priority = 2
+
+[server_3]
+host = ftp3.example.com
+port = 21
+username = netchunk_user3
+password = your_password_here
+base_path = /netchunk/storage
+use_ssl = false
+passive_mode = true
+priority = 3
+
+# Add more servers as needed...
+# [server_4]
+# host = ftp4.example.com
+# port = 21
+# username = netchunk_user4
+# password = your_password_here
+# base_path = /netchunk/storage
+# use_ssl = false
+# passive_mode = true
+# priority = 4
+
+[repair]
+# Enable automatic repair of corrupted or missing chunks
+auto_repair_enabled = true
+
+# Maximum number of repair attempts for a single chunk
+max_repair_attempts = 3
+
+# Delay between repair attempts in seconds
+repair_delay = 10
+
+# Enable rebalancing when servers become available/unavailable
+rebalancing_enabled = true
+
+[monitoring]
+# Storage usage alert threshold (percentage)
+storage_alert_threshold = 85
+
+# Network latency alert threshold in milliseconds
+latency_alert_threshold = 1000
+
+# Enable detailed performance logging
+performance_logging = false
+
+# Path to store monitoring data
+monitoring_data_path = ~/.netchunk/monitoring
+
+[security]
+# Verify SSL certificates (only relevant when use_ssl = true)
+verify_ssl_certificates = true
+
+# Enable chunk integrity verification on every access
+always_verify_integrity = true
+
+# Hash algorithm: SHA256 (only supported algorithm currently)
+hash_algorithm = SHA256
+
+# Enable encryption of chunks before upload (future feature)
+encrypt_chunks = false

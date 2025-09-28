@@ -1,0 +1,130 @@
+version: '3.8'
+
+services:
+  ftp-server-1:
+    image: delfer/alpine-ftp-server
+    container_name: netchunk-ftp-1
+    ports:
+      - "2121:21"
+      - "21000-21010:21000-21010"
+    environment:
+      - USERS=netchunk1|test123
+      - ADDRESS=localhost
+    volumes:
+      - ftp1_data:/ftp/netchunk1
+    restart: unless-stopped
+    networks:
+      - netchunk-test
+
+  ftp-server-2:
+    image: delfer/alpine-ftp-server
+    container_name: netchunk-ftp-2
+    ports:
+      - "2122:21"
+      - "21200-21210:21000-21010"
+    environment:
+      - USERS=netchunk2|test456
+      - ADDRESS=localhost
+    volumes:
+      - ftp2_data:/ftp/netchunk2
+    restart: unless-stopped
+    networks:
+      - netchunk-test
+
+  ftp-server-3:
+    image: delfer/alpine-ftp-server
+    container_name: netchunk-ftp-3
+    ports:
+      - "2123:21"
+      - "21300-21310:21000-21010"
+    environment:
+      - USERS=netchunk3|test789
+      - ADDRESS=localhost
+    volumes:
+      - ftp3_data:/ftp/netchunk3
+    restart: unless-stopped
+    networks:
+      - netchunk-test
+
+  ftp-server-4:
+    image: delfer/alpine-ftp-server
+    container_name: netchunk-ftp-4
+    ports:
+      - "2124:21"
+      - "21400-21410:21000-21010"
+    environment:
+      - USERS=netchunk4|secure456
+      - ADDRESS=localhost
+    volumes:
+      - ftp4_data:/ftp/netchunk4
+    restart: unless-stopped
+    networks:
+      - netchunk-test
+
+  ftp-server-5:
+    image: delfer/alpine-ftp-server
+    container_name: netchunk-ftp-5
+    ports:
+      - "2125:21"
+      - "21500-21510:21000-21010"
+    environment:
+      - USERS=netchunk5|secure789
+      - ADDRESS=localhost
+    volumes:
+      - ftp5_data:/ftp/netchunk5
+    restart: unless-stopped
+    networks:
+      - netchunk-test
+
+  ftp-server-6:
+    image: delfer/alpine-ftp-server
+    container_name: netchunk-ftp-6
+    ports:
+      - "2126:21"
+      - "21600-21610:21000-21010"
+    environment:
+      - USERS=netchunk6|admin123
+      - ADDRESS=localhost
+    volumes:
+      - ftp6_data:/ftp/netchunk6
+    restart: unless-stopped
+    networks:
+      - netchunk-test
+
+  ftp-server-7:
+    image: delfer/alpine-ftp-server
+    container_name: netchunk-ftp-7
+    ports:
+      - "2127:21"
+      - "21700-21710:21000-21010"
+    environment:
+      - USERS=netchunk7|admin456
+      - ADDRESS=localhost
+    volumes:
+      - ftp7_data:/ftp/netchunk7
+    restart: unless-stopped
+    networks:
+      - netchunk-test
+
+volumes:
+  ftp1_data:
+    driver: local
+  ftp2_data:
+    driver: local
+  ftp3_data:
+    driver: local
+  ftp4_data:
+    driver: local
+  ftp5_data:
+    driver: local
+  ftp6_data:
+    driver: local
+  ftp7_data:
+    driver: local
+
+networks:
+  netchunk-test:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
